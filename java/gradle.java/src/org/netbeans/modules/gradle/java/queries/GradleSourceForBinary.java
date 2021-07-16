@@ -41,9 +41,7 @@ import javax.swing.event.ChangeListener;
 import org.netbeans.api.java.queries.SourceForBinaryQuery;
 import org.netbeans.api.project.Project;
 import static org.netbeans.modules.gradle.api.NbGradleProject.Quality.*;
-import org.netbeans.spi.java.queries.SourceForBinaryQueryImplementation;
 import org.netbeans.spi.java.queries.SourceForBinaryQueryImplementation2;
-import org.netbeans.spi.project.ProjectServiceProvider;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.ChangeSupport;
@@ -54,7 +52,6 @@ import org.openide.util.WeakListeners;
  *
  * @author Laszlo Kishalmi
  */
-@ProjectServiceProvider(service = {SourceForBinaryQueryImplementation.class, SourceForBinaryQueryImplementation2.class}, projectType = NbGradleProject.GRADLE_PLUGIN_TYPE + "/java-base")
 public class GradleSourceForBinary implements SourceForBinaryQueryImplementation2 {
 
     private final Project project;
@@ -78,13 +75,11 @@ public class GradleSourceForBinary implements SourceForBinaryQueryImplementation
                             for (GradleJavaSourceSet ss : prj.getSourceSets().values()) {
                                 File outputDir = ss.getCompilerArgs(JAVA).contains("--module-source-path") ? //NOI18N
                                         root.getParentFile() : root;
-                                for (File dir : ss.getOutputClassDirs()) {
-                                    if (outputDir.equals(dir)) {
-                                        ret = new Res(project, ss.getName(), EnumSet.of(JAVA, GROOVY, SCALA, GENERATED));
-                                        break;
-                                    }
+                                if (ss.getOutputClassDirs().contains(outputDir)) {
+                                    ret = new Res(project, ss.getName(), EnumSet.of(JAVA, GROOVY, SCALA, GENERATED));
+                                    break;
                                 }
-                                if (root.equals(ss.getOutputResources())) {
+                                if ((ret == null) && root.equals(ss.getOutputResources())) {
                                     ret = new Res(project, ss.getName(), EnumSet.of(RESOURCES));
                                 }
                                 if (ret != null) {
