@@ -31,10 +31,7 @@ import org.testng.annotations.Test;
 @Test(groups = {"unit-tests"})
 public class GlassFishVersionTest {
 
-    ////////////////////////////////////////////////////////////////////////////
     // Static methods                                                         //
-    ////////////////////////////////////////////////////////////////////////////
-
     /**
      * Test that <code>toValue</code> handles addition values for given version
      * and additional values array.
@@ -47,10 +44,7 @@ public class GlassFishVersionTest {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////
     // Test methods                                                           //
-    ////////////////////////////////////////////////////////////////////////////
-
     /**
      * Test that <code>toString</code> handles all <code>enum</code> values.
      */
@@ -141,6 +135,12 @@ public class GlassFishVersionTest {
                 GlassFishVersion.GF_7_0_20_STR_NEXT);
         verifyToValueFromAdditionalArray(GlassFishVersion.GF_7_0_21,
                 GlassFishVersion.GF_7_0_21_STR_NEXT);
+        verifyToValueFromAdditionalArray(GlassFishVersion.GF_7_0_22,
+                GlassFishVersion.GF_7_0_22_STR_NEXT);
+        verifyToValueFromAdditionalArray(GlassFishVersion.GF_7_0_23,
+                GlassFishVersion.GF_7_0_23_STR_NEXT);
+        verifyToValueFromAdditionalArray(GlassFishVersion.GF_7_0_24,
+                GlassFishVersion.GF_7_0_24_STR_NEXT);
         verifyToValueFromAdditionalArray(GlassFishVersion.GF_8_0_0,
                 GlassFishVersion.GF_8_0_0_STR_NEXT);
     }
@@ -175,7 +175,8 @@ public class GlassFishVersionTest {
             GlassFishVersion.GF_7_0_16, GlassFishVersion.GF_7_0_17,
             GlassFishVersion.GF_7_0_18, GlassFishVersion.GF_7_0_19,
             GlassFishVersion.GF_7_0_20, GlassFishVersion.GF_7_0_21,
-            GlassFishVersion.GF_8_0_0
+            GlassFishVersion.GF_7_0_22, GlassFishVersion.GF_7_0_23,
+            GlassFishVersion.GF_7_0_24, GlassFishVersion.GF_8_0_0
         };
         String strings[] = {
             "1.0.1.4", "2.0.1.5", "2.1.0.3", "2.1.1.7",
@@ -190,7 +191,7 @@ public class GlassFishVersionTest {
             "7.0.10.0", "7.0.11.0", "7.0.12.0", "7.0.13.0",
             "7.0.14.0", "7.0.15.0", "7.0.16.0", "7.0.17.0",
             "7.0.18.0", "7.0.19.0", "7.0.20.0", "7.0.21.0",
-            "8.0.0.0"
+            "7.0.22.0", "7.0.23.0", "7.0.24.0", "8.0.0.0"
         };
         for (int i = 0; i < versions.length; i++) {
             GlassFishVersion version = GlassFishVersion.toValue(strings[i]);
